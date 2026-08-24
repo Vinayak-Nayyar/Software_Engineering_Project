@@ -22,3 +22,72 @@ The current implementation provides the frontend foundation for:
 - Responsive campus marketplace UI
 
 ---
+
+##  Current Features
+
+###  Landing / Marketplace Page
+
+The current landing page includes:
+
+- CampusMarket branding
+- Hero section
+- "Explore Marketplace" button
+- "Sell an Item" button
+- Trending products
+- Product cards
+- Product names
+- Prices
+- Product conditions
+- Seller information
+- Product images
+- Wishlist-style buttons
+- Responsive navigation
+
+The current marketplace products are **static demo data**.
+
+---
+
+###  User Registration
+
+The registration page currently includes:
+
+- First Name
+- Last Name
+- College / University Email
+- Password
+- Confirm Password
+- Password visibility toggle
+- `.edu` email warning
+- Create Account button
+- Login navigation
+
+The current registration flow stores basic user information in browser `localStorage`.
+
+---
+
+###  Login
+
+The login interface includes:
+
+- College / University Email
+- Password
+- Password visibility toggle
+- Login button
+- Registration navigation
+
+The current login system is a **frontend prototype** and does not yet verify credentials against a backend database.
+
+---
+
+##  Client-Side User Management
+
+The project contains utility functions for managing the current user:
+
+```javascript
+createCampusMarketUser()
+saveCampusMarketUser()
+getCampusMarketUser()
+clearCampusMarketUser()
+getFullName()
+getInitials()
+getCollegeFromEmail()
