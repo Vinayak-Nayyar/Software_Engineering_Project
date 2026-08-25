@@ -23,7 +23,12 @@ const accountOptions = [
   { label: 'Account Settings', path: '/settings', icon: Settings },
 ];
 
-export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
+export default function CampusNavbar({
+  user,
+  onLogin,
+  onNavigate,
+  onLogout,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const initials = getInitials(user);
@@ -56,17 +61,37 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
     onLogout();
   };
 
+  // CampusMarket logo → dashboard
+  const handleLogoClick = () => {
+    setIsMenuOpen(false);
+    onNavigate('/landing');
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12"
       >
-        <a href="#" className="flex shrink-0 items-center gap-2 font-bold text-blue-700">
-          <Store className="h-5 w-5 stroke-[2.4]" aria-hidden="true" />
-          <span className="text-lg tracking-normal">CampusMarket</span>
-        </a>
 
+        {/* CampusMarket Logo */}
+        <button
+          type="button"
+          onClick={handleLogoClick}
+          aria-label="Go to CampusMarket dashboard"
+          className="flex shrink-0 items-center gap-2 rounded-md font-bold text-blue-700 transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+        >
+          <Store
+            className="h-5 w-5 stroke-[2.4]"
+            aria-hidden="true"
+          />
+
+          <span className="text-lg tracking-normal">
+            CampusMarket
+          </span>
+        </button>
+
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-9 md:flex">
           {navLinks.map((link) => (
             <a
@@ -83,35 +108,52 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
           ))}
         </div>
 
+        {/* Right Side */}
         <div className="flex items-center gap-2.5 sm:gap-4">
+
+          {/* Cart */}
           <button
             type="button"
             aria-label="Open cart"
             className="grid h-9 w-9 place-items-center rounded-full text-brand-navy transition hover:bg-slate-50"
           >
-            <ShoppingCart className="h-[18px] w-[18px]" aria-hidden="true" />
+            <ShoppingCart
+              className="h-[18px] w-[18px]"
+              aria-hidden="true"
+            />
           </button>
 
+          {/* Notifications */}
           <button
             type="button"
             aria-label="Open notifications"
             className="grid h-9 w-9 place-items-center rounded-full text-brand-navy transition hover:bg-slate-50"
           >
-            <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
+            <Bell
+              className="h-[18px] w-[18px]"
+              aria-hidden="true"
+            />
           </button>
 
+          {/* Logged In */}
           {user ? (
             <div ref={menuRef} className="relative">
+
+              {/* Avatar */}
               <button
                 type="button"
                 aria-haspopup="menu"
                 aria-expanded={isMenuOpen}
-                onClick={() => setIsMenuOpen((current) => !current)}
+                aria-label="Open account menu"
+                onClick={() =>
+                  setIsMenuOpen((current) => !current)
+                }
                 className="flex h-10 items-center gap-2 rounded-full bg-blue-50 px-1.5 pr-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
               >
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-sm shadow-blue-600/25">
                   {initials}
                 </span>
+
                 <ChevronDown
                   className={`h-3.5 w-3.5 transition-transform duration-200 ${
                     isMenuOpen ? 'rotate-180' : ''
@@ -120,6 +162,7 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
                 />
               </button>
 
+              {/* Account Dropdown */}
               <div
                 role="menu"
                 className={`absolute right-0 top-full mt-3 w-72 origin-top-right rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-300/40 transition-all duration-200 ${
@@ -128,16 +171,25 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
                     : 'pointer-events-none -translate-y-1 scale-95 opacity-0'
                 }`}
               >
+
+                {/* User Information */}
                 <div className="flex items-center gap-3 border-b border-slate-100 px-3 py-3">
                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-sm shadow-blue-600/25">
                     {initials}
                   </span>
+
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-slate-900">{getFullName(user)}</p>
-                    <p className="truncate text-xs text-slate-500">{user.email}</p>
+                    <p className="truncate text-sm font-bold text-slate-900">
+                      {getFullName(user)}
+                    </p>
+
+                    <p className="truncate text-xs text-slate-500">
+                      {user.email}
+                    </p>
                   </div>
                 </div>
 
+                {/* Account Options */}
                 <div className="py-2">
                   {accountOptions.map((option) => {
                     const Icon = option.icon;
@@ -147,16 +199,23 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
                         key={option.label}
                         type="button"
                         role="menuitem"
-                        onClick={() => handleOptionClick(option.path)}
+                        onClick={() =>
+                          handleOptionClick(option.path)
+                        }
                         className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700"
                       >
-                        <Icon className="h-4 w-4" aria-hidden="true" />
+                        <Icon
+                          className="h-4 w-4"
+                          aria-hidden="true"
+                        />
+
                         {option.label}
                       </button>
                     );
                   })}
                 </div>
 
+                {/* Logout */}
                 <div className="border-t border-slate-100 pt-2">
                   <button
                     type="button"
@@ -164,13 +223,19 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
                     onClick={handleLogoutClick}
                     className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-700 transition hover:bg-red-50 hover:text-red-600"
                   >
-                    <LogOut className="h-4 w-4" aria-hidden="true" />
+                    <LogOut
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    />
+
                     Log Out
                   </button>
                 </div>
               </div>
             </div>
           ) : (
+
+            /* Logged Out */
             <button
               type="button"
               onClick={onLogin}
@@ -178,17 +243,23 @@ export default function CampusNavbar({ user, onLogin, onNavigate, onLogout }) {
             >
               Log In
             </button>
+
           )}
         </div>
       </nav>
 
+      {/* Mobile Navigation */}
       <div className="border-t border-slate-100 px-5 py-2 md:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-6 text-sm">
           {navLinks.map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-              className={link === 'Browse' ? 'font-semibold text-blue-700' : 'font-medium text-slate-500'}
+              className={
+                link === 'Browse'
+                  ? 'font-semibold text-blue-700'
+                  : 'font-medium text-slate-500'
+              }
             >
               {link}
             </a>

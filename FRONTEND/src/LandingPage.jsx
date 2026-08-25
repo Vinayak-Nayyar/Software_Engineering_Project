@@ -221,10 +221,14 @@ export default function LandingPage({ user, onLogin, onNavigate, onLogout }) {
           <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
             <div className="grid gap-10 md:grid-cols-[1.5fr_0.8fr_0.8fr]">
               <div>
-                <a href="#" className="flex items-center gap-2 font-bold text-brand-navy">
-                  <Store className="h-5 w-5 text-blue-700" aria-hidden="true" />
-                  CampusMarket
-                </a>
+                <button
+                type="button"
+                onClick={() => onNavigate('/landing')}
+                className="flex items-center gap-2 font-bold text-blue-700"
+              >
+                <Store className="h-5 w-5" />
+                <span>CampusMarket</span>
+              </button>
                 <p className="mt-4 max-w-sm text-sm leading-6 text-slate-500">
                   Built for students, by students. A safer, smarter way to trade on campus.
                 </p>
