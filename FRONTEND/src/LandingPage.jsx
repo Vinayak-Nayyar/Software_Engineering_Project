@@ -1,14 +1,12 @@
 import {
   CheckCircle2,
   ChevronRight,
-  Globe2,
   Heart,
   LockKeyhole,
   PlusCircle,
-  Share2,
   ShieldCheck,
-  Store,
 } from 'lucide-react';
+import CampusFooter from './CampusFooter';
 import CampusNavbar from './CampusNavbar';
 import { Component } from './components/ui/gradient-backgrounds';
 
@@ -217,6 +215,7 @@ export default function LandingPage({ user, onLogin, onNavigate, onLogout }) {
           </section>
         </main>
 
+        <CampusFooter onNavigate={onNavigate} />
         <footer className="bg-slate-50">
           <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
             <div className="grid gap-10 md:grid-cols-[1.5fr_0.8fr_0.8fr]">
