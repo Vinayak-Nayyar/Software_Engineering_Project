@@ -7,7 +7,9 @@ import {
   SavedItemsPage,
   SettingsPage,
 } from './AccountPages';
+import AboutPage from './AboutPage';
 import AuthModal from './AuthModal';
+import HowItWorksPage from './HowItWorksPage';
 import LandingPage from './LandingPage';
 import LoginPage from './LoginPage';
 import { clearCampusMarketUser, getCampusMarketUser, saveCampusMarketUser } from './authStorage';
@@ -19,6 +21,8 @@ const ORDERS_PATH = '/orders';
 const LISTINGS_PATH = '/listings';
 const SAVED_ITEMS_PATH = '/saved-items';
 const SETTINGS_PATH = '/settings';
+const ABOUT_PATH = '/about';
+const HOW_IT_WORKS_PATH = '/how-it-works';
 
 function App() {
   const [path, setPath] = useState(window.location.pathname);
@@ -79,6 +83,14 @@ function App() {
 
   if (path === LOGIN_PATH) {
     return <LoginPage onLogin={completeAuthFlow} onSignUp={() => navigate('/')} />;
+  }
+
+  if (path === ABOUT_PATH) {
+    return <AboutPage {...sharedPageProps} />;
+  }
+
+  if (path === HOW_IT_WORKS_PATH) {
+    return <HowItWorksPage {...sharedPageProps} />;
   }
 
   if (!user && [PROFILE_PATH, ORDERS_PATH, LISTINGS_PATH, SAVED_ITEMS_PATH, SETTINGS_PATH].includes(path)) {
